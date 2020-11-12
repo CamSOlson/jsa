@@ -7,8 +7,8 @@ This library can be added to any HTML file to allow for easy animations that are
 This is an *extremely* early prototype that will be receiving new features and updates 
 
 ## Usage
-* Begin by adding the following script tag to the head of your file: `<script src="https://camsolson.github.io/jsa/index.js"></script>`
-* Alternatively, you can download `index.js` from https://github.com/CamSOlson/jsa/blob/main/index.js and include it locally in your file
+* Begin by adding the following script tag to the head of your file: `<script src="https://camsolson.github.io/jsa/jsa.js"></script>`
+* Alternatively, you can download `jsa.js` from https://github.com/CamSOlson/jsa and include it locally in your file
 * In any element that you want to animate, add `data-animation`
 * Add animation data directly to the element's `data-animation`
 
