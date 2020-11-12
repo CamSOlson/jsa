@@ -156,7 +156,7 @@ let _anim = (function() {
 
 		switch(args[3].toLowerCase()){
 			default:
-				break;
+				args[3] = "top";
 			case "top": case "down":
 				fromX = "0";
 				fromY = "-100";
