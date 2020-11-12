@@ -6,25 +6,72 @@ let _anim = (function() {
 
 	//Keep an object with animation data that cannot be touched by users
 	let elementAnimations = new Map();
+
+	let findingElements = false;
+
+	let observer;
+
+	const version = 0.1;
 	
 	//Add decoder to load
 	function init(){
+		//Add load listener
 		window.addEventListener('DOMContentLoaded',	function() {
 			findElements();
 			addScrollListeners();
 			scrollInit();
+
+			document.head.appendChild(animStyle);
+
+			//Create a mutation observer to monitor changes in attributes and new values to make sure new/changed elements are animated properly
+			observer = new MutationObserver(domChanged);
+			observer.observe(document, { attributes: true, childList: true, subtree: true });
+
+			console.log("JSA v. " + version + " initialized. Visit https://github.com/CamSOlson/jsa for documentation");
+
 		});
+	}
+
+	function domChanged(mutations){
+		if (!findingElements){
+			for (let e of mutations){
+				if (e.target != undefined && e.target != null && e.target instanceof HTMLElement){
+					if (e.type == "attributes" && e.attributeName == "data-animation"){
+						addNewElement(e.target);		
+					}else if (e.type == "childList"){
+						for (let elem of e.addedNodes){
+							if (elem instanceof HTMLElement && elem.hasAttribute("data-animation")){
+								addNewElement(elem);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	function addNewElement(elem){
+		decodeStyles(elem);
+		if (elem.dataset.animation.includes("scroll")){
+			scrollElems.push(elem);
+		}
+		checkScrollPos();
 	}
 
 	//Collect all elements in page that are to be animated
 	function findElements(){
+		findingElements = true;
+
 		animatedElements = document.querySelectorAll("*[data-animation]");
+		scrollElems = [];
 		for (let elem of animatedElements){
 			decodeStyles(elem);
+			if (elem.dataset.animation.includes("scroll")){
+				scrollElems.push(elem);
+			}
 		}
-		document.head.appendChild(animStyle);
 
-		scrollElems = animatedElements;
+		findingElements = false;
 	}
 	
 	//Scroll-activated animations
@@ -54,6 +101,10 @@ let _anim = (function() {
 	}
 	
 	function decodeStyles(elem){
+		if (elem.dataset.animation == undefined){
+			return;
+		}
+
 		let attributes = elem.dataset.animation.split(";");
 		
 		//Keep an array of all animation objects
@@ -156,7 +207,8 @@ let _anim = (function() {
 
 		switch(args[3].toLowerCase()){
 			default:
-				args[3] = "top";
+				args[3] = "left";
+				break;
 			case "top": case "down":
 				fromX = "0";
 				fromY = "-100";
@@ -189,7 +241,8 @@ let _anim = (function() {
 		let name = "slide-dir-" + args[3];
 		
 		return {"name": name,
-				"data": "@keyframes " + name + "{from{transform: translate(" + fromX + "vw, " + fromY + "vh);} to{transform: translate(" + toX + "vw, " + toY + "vh);}}"};
+				"data": "@keyframes " + name + "{from{transform: translate(" +
+					fromX + "vw, " + fromY + "vh);} to{transform: translate(" + toX + "vw, " + toY + "vh);}}"};
 	}
 	
 	init();
