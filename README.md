@@ -4,7 +4,7 @@ A lightweight JavaScript animation library
 ## About
 This library can be added to any HTML file to allow for easy animations that are dynamically generated to suit the user's parameters without having to create complicated CSS rules and scripts. Animations can be activated through a variety of triggers to allow for a more lively and responsive experience.
 
-This is an --extremely-- early prototype that will be receiving new features and updates 
+This is an *extremely* early prototype that will be receiving new features and updates 
 
 ## Usage
 * Begin by adding the following script tag to the head of your file: `<script src="https://camsolson.github.io/jsa/index.js"></script>`
@@ -18,7 +18,7 @@ Animation data is formatted like a JavaScript function call to retain familiarit
 ### Animation Types
 JSA currently has the following animation types:
 * **Fade** 
-  * --Shift an element's opacity from one value to another--
+  * *Shift an element's opacity from one value to another*
   * Value: `fade`
   * Additional arguments
     * `Argument 4: starting opacity` 
@@ -28,8 +28,7 @@ JSA currently has the following animation types:
       * A `float` value controling the element's opacity after the animation is completed
       * Default value: `1`
 * **Slide In**
-  * --Move an element from offscreen to its position--
-    * --Shift an element's opacity from one value to another--
+  * *Move an element from offscreen to its position*
   * Value: `slide`
   * Additional arguments
     * `Argument 4: direction` 
@@ -47,7 +46,7 @@ JSA currently has the following animation types:
 ### Animation Triggers
 JSA currently has the following animation triggers:
 * **Scroll**
-  * --Begin the animation then the page has been scrolled to a point where the element is visible--
+  * *Begin the animation then the page has been scrolled to a point where the element is visible*
   * Value: `scroll`
   
 ## Contact
