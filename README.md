@@ -9,8 +9,8 @@ This is an *extremely* early prototype that will be receiving new features and u
 ## Usage
 * Begin by adding the following script tag to the head of your file: `<script src="https://camsolson.github.io/jsa/jsa.js"></script>`
 * Alternatively, you can download `jsa.js` from https://github.com/CamSOlson/jsa and include it locally in your file
-* In any element that you want to animate, add `data-animation`
-* Add animation data directly to the element's `data-animation`
+* In any element that you want to animate, add a `data-animation` attribute
+* Add animation data directly to the element's `data-animation` attribute
 
 ## Animations
 Animation data is formatted like a JavaScript function call to retain familiarity and modularity. The general template is as follows: `<animation name>(<trigger>, <duration>, <delay>,  <animation-specific arguments>...);`
@@ -45,9 +45,15 @@ JSA currently has the following animation types:
 
 ### Animation Triggers
 JSA currently has the following animation triggers:
+* **Load**
+ * *Begin animation as soon as the element is loaded and processed*
+ * Value: `load`
 * **Scroll**
   * *Begin the animation then the page has been scrolled to a point where the element is visible*
   * Value: `scroll`
+  
+## Functionality
+JSA works by dynamically creating styles and data attributes in the page's HTML. When loaded, it processes any animation data and creates a stylesheet in the `head` of the page to handle the animations with CSS's built-in animation and transition features, though with much less work for the user and additional scripting for more sophisticated functionality. JSA by default monitors DOM changes and attribute modifications, so elements can be dynamically added to the page, and animation data can be added, removed, or changed with scripts after loading.
   
 ## Contact
 If you have any requests, concerns, or questions, please email me at `camsolson@gmail.com`
