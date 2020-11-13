@@ -92,7 +92,7 @@ let _anim = (function() {
 			if (positionFromTop - window.innerHeight <= 0) {				
 				//Loop through animations and add scroll-activated ones to the dataset
 				for (let animation of elementAnimations.get(elem)){
-					if (animation.activator == "scroll" && !elem.dataset.animation_active.includes(animation["name"])){
+					if (animation.trigger == "scroll" && !elem.dataset.animation_active.includes(animation["name"])){
 						elem.dataset.animation_active += animation["name"] + ";";
 					}
 				}
@@ -109,6 +109,8 @@ let _anim = (function() {
 		
 		//Keep an array of all animation objects
 		let animations = [];
+
+		let activeAnimData = "";
 
 		//Create a new style element for the custom animation
 		for (let attribute of attributes){
@@ -134,7 +136,7 @@ let _anim = (function() {
 				}
 				
 				/* GENERAL ARGUMENT KEY
-					0: activator
+					0: trigger
 					1: duration
 					2: delay
 				*/
@@ -149,10 +151,10 @@ let _anim = (function() {
 				args[2] = args[2].replaceAll("p", ".");
 	
 				//Add to element animation data object
-				animations.push({"name": attribute, "type": type, "activator": args[0], "args": args});
+				let anim = {"name": attribute, "type": type, "trigger": args[0], "args": args};
+				animations.push(anim);
 		
 				//Create new class in stylesheet
-				
 				let style = "*[data-animation_active*='" + attribute + "']";
 				if (!currentStyles.includes(style)){
 					animStyle.innerHTML += style + "{" +
@@ -162,11 +164,16 @@ let _anim = (function() {
 						+ "}";
 					currentStyles.push(style);
 				}
+
+				//If the animation is a load-based animation, add it to the active animation string
+				if (anim.trigger == "load"){
+					activeAnimData += attribute + ";";
+				}
 			}
 		}
 
 		//Create an active version of the animation dataset to start and stop animations when necessary
-		elem.dataset.animation_active = "";
+		elem.dataset.animation_active = activeAnimData;
 
 		elementAnimations.set(elem, animations);
 	}
