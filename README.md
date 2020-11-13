@@ -46,8 +46,8 @@ JSA currently has the following animation types:
 ### Animation Triggers
 JSA currently has the following animation triggers:
 * **Load**
- * *Begin animation as soon as the element is loaded and processed*
- * Value: `load`
+  * *Begin animation as soon as the element is loaded and processed*
+  * Value: `load`
 * **Scroll**
   * *Begin the animation then the page has been scrolled to a point where the element is visible*
   * Value: `scroll`
